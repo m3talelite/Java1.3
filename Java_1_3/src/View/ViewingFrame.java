@@ -1,12 +1,12 @@
 package View;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class ViewingFrame extends JFrame {
@@ -14,8 +14,6 @@ public class ViewingFrame extends JFrame {
 	private JFrame frame;
 	private Dimension size;
 	private JLabel statusLabel = new JLabel("Status");
-	
-	
 	
 	public ViewingFrame(){
 		//initializes the JFrame
@@ -39,6 +37,19 @@ public class ViewingFrame extends JFrame {
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//TODO: Initialize the rest of the frame (JPanels ect)
+		/** Panels for the GUI **/
+		JPanel statusPanel = new JPanel(new FlowLayout());
+		JPanel contentPanel = new JPanel(new BorderLayout());
+		
+		/** Add everything to the panels and frame**/
+		statusPanel.add(statusLabel);
+		contentPanel.add(statusPanel, BorderLayout.SOUTH);
+		
+		frame.add(contentPanel);
+		
+		/** finish the initialize **/
+		contentPanel.setPreferredSize(getMaximumSize());
+		frame.setVisible(true);
 	}
 
 	public JFrame getFrame() {
