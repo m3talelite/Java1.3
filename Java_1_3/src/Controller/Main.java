@@ -1,5 +1,7 @@
 package Controller;
 
+import View.ViewingFrame;
+
 public class Main {
 
 	public static void main(String args[])
@@ -7,14 +9,16 @@ public class Main {
 		new Main();
 	}
 	
+	private ViewingFrame viewingFrame;
+	
 	public Main(){
-		//TODO: Initialize everything
 		System.out.println("Start of the program\n");
+		
+		//TODO: Initialize everything (not only the frame)
+		viewingFrame = new ViewingFrame();
 		
 		System.out.println("End of the program");
 	}
-	
-	
 	
 	public void readTextFile(){
 		
@@ -24,5 +28,11 @@ public class Main {
 		
 	}
 	
+	public void readObjectFile(){
+		
+	}
 	
+	public void writeObjectFile(){
+		
+	}
 }
