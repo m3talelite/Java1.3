@@ -71,6 +71,13 @@ public class CollectionClasses {
 		
 	}
 	
+	//////////////////////////////////////COMPARABLE//////////////////////////////////////
+	
+	public List<Book> getSortedComId() {
+		Collections.sort(list);
+		return list;
+	}
+	
 	//////////////////////////////////////COMPARATOR//////////////////////////////////////
 	
 	@SuppressWarnings("unchecked")
@@ -111,9 +118,17 @@ public class CollectionClasses {
 	
 		public Comparator SortTitleComparator = new Comparator() {
 			public int compare(Object obj1, Object obj2) {
-				String title1 = ((Book) obj1).getName();
-				String title2 = ((Book) obj2).getName();
+				String title1 = ((Book) obj1).getTitle();
+				String title2 = ((Book) obj2).getTitle();
 				return title1.compareTo(title2);
+			}
+		};
+		
+		public Comparator SortYearComparator = new Comparator() {
+			public int compare(Object obj1, Object obj2) {
+				int year1 = ((Book) obj1).getYear();
+				int year2 = ((Book) obj2).getYear();
+				return year1 - year2;
 			}
 		};
 	
@@ -134,7 +149,7 @@ public class CollectionClasses {
 			
 			return ComparisonChain.start() 
 					.compare(book1.getId(),book2.getId())
-					.compare(book1.getName(),book2.getName())
+					.compare(book1.getTitle(),book2.getTitle())
 					.compare(book1.getPrice(),book2.getPrice())
 					.result();
 		}

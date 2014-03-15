@@ -1,17 +1,23 @@
 package Model;
 
+/*
+ * 
+ * Abstracte klassen van gemaakt i.v.m. het aanroepen van de methodes in de anonieme inwendige klassen comparable.
+ * 
+ */
+
 public abstract class Book implements Comparable<Book> {
 	
 	private int id;
-	private String name;
+	private String title;
 	private int year;
 	private double price;
 	
 	public Book() { }
 	
-	public Book(int id, String name, int year, double price){
+	public Book(int id, String title, int year, double price){
 		this.id = id;
-		this.name = name;
+		this.title = title;
 		this.year = year;
 		this.price = price;
 	}
@@ -24,12 +30,12 @@ public abstract class Book implements Comparable<Book> {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public int getYear() {
@@ -52,14 +58,14 @@ public abstract class Book implements Comparable<Book> {
 	public String toString() {
 		String tmp = "Book " +
 				"[id=" + id + 
-				", name=" + name + 
+				", name=" + title + 
 				", year=" + year+ 
 				", price=" + price + "]";
 		
 		System.out.println(tmp);
 		return tmp;
 	}
-
+	
 	//Sample of the equals method
 	//Should work great
 	public boolean equals(Object obj){
@@ -67,6 +73,16 @@ public abstract class Book implements Comparable<Book> {
 			return true;
 		return false;
 	}
+	
+	//////////////////////////////////////COMPARABLE//////////////////////////////////////	
+	
+	/*
+	 * 
+	 * De onderstaande methodes laten verschillende manieren van sortering zien.
+	 * Het is aan jouw zelf te bepalen welke van deze methodes je wilt gaan gebruiken. 
+	 * Houd er rekening mee dat ieder zijn voor- en nadelen heeft.
+	 * 
+	 */
 	
 	@SuppressWarnings("rawtypes")
 	public Comparable SortIdComparable = new Book() {
@@ -80,9 +96,21 @@ public abstract class Book implements Comparable<Book> {
 	@SuppressWarnings("rawtypes")
 	public Comparable SortTitleComparable = new Book() {
 		public int compareTo(Book obj) {
-			String title1 = obj.getName();
-			String title2 = this.getName();
+			String title1 = obj.getTitle();
+			String title2 = this.getTitle();
 				return title1.compareTo(title2);			
+		}
+	};
+	
+	@SuppressWarnings("rawtypes")
+	public Comparable SortYearComparable = new Book() {
+		public int compareTo(Book o) {
+			if (o.getYear() > this.getYear()) 
+				return 1;
+			else if (o.getYear() < this.getYear())
+				return -1;
+			else
+				return 0;
 		}
 	};
 	
