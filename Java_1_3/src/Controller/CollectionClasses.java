@@ -1,19 +1,24 @@
 package Controller;
 
+import com.google.common.collect.ComparisonChain;
+
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import Model.Book;
+
 public class CollectionClasses {
-	private List<Object> list;
+	private List<Book> list;
 	private Map<Object, List<Object>> map;
 	private Set<Object> set;
 	
 	private static CollectionClasses collclass;
 	
-	private CollectionClasses(){
-		
-	}
+	private CollectionClasses() { }
+	
 	//*-----------------------------------------------------*\\
 	// Singleton object for the collectionClasses 	`		 \\
 	//making it impossible to make two objects of this kind  \\
@@ -25,14 +30,6 @@ public class CollectionClasses {
 	}
 
 	//Getters and setters, toString and equals//
-	public List<Object> getList() {
-		return list;
-	}
-
-	public void setList(List<Object> list) {
-		this.list = list;
-	}
-
 	public Map<Object, List<Object>> getMap() {
 		return map;
 	}
@@ -73,5 +70,76 @@ public class CollectionClasses {
 	public void deleteFromSet(Object obj){
 		
 	}
+	
+	//////////////////////////////////////COMPARATOR//////////////////////////////////////
+	
+	@SuppressWarnings("unchecked")
+	public List<Book> getSortedId() {
+		Collections.sort(list,new ComparatorSort().SortIdComparator);
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Book> getSortedTitle() {
+		Collections.sort(list,new ComparatorSort().SortTitleComparator);
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Book> getSortedPrice() {
+		Collections.sort(list,new ComparatorSort().SortPriceComparator);
+		return list;
+	}
+	
+	//Aparte library van google!	
+	@SuppressWarnings("unchecked")
+	public List<Book> getSortedList() {
+		Collections.sort(list,new ComparatorSort());
+		return list;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public class ComparatorSort implements Comparator {
+	
+		public Comparator SortIdComparator = new Comparator() {
+			public int compare(Object obj1, Object obj2) {
+				int id1 = ((Book) obj1).getId();
+				int id2 = ((Book) obj2).getId();
+				return id1 > id2 ? 1 : id1 < id2 ? -1 : 0;
+			}
+		};
+	
+		public Comparator SortTitleComparator = new Comparator() {
+			public int compare(Object obj1, Object obj2) {
+				String title1 = ((Book) obj1).getName();
+				String title2 = ((Book) obj2).getName();
+				return title1.compareTo(title2);
+			}
+		};
+	
+		public Comparator SortPriceComparator = new Comparator() {
+			public int compare(Object obj1, Object obj2) {
+				double price1 = ((Book)obj1).getPrice();
+				double price2 = ((Book)obj2).getPrice();
+				return Double.compare(price1,price2);
+			}
+		};
+
+		//Aparte library van google!
+		@Override
+		public int compare(Object o1, Object o2) {
+
+			Book book1 = (Book)o1;
+			Book book2 = (Book)o2;
+			
+			return ComparisonChain.start() 
+					.compare(book1.getId(),book2.getId())
+					.compare(book1.getName(),book2.getName())
+					.compare(book1.getPrice(),book2.getPrice())
+					.result();
+		}
+
+	}
+	
 }
  

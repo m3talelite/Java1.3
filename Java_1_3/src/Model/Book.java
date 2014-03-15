@@ -1,13 +1,15 @@
 package Model;
 
-public class Book {
+public abstract class Book implements Comparable<Book> {
 	
 	private int id;
 	private String name;
 	private int year;
-	private float price;
+	private double price;
 	
-	public Book(int id, String name, int year, float price){
+	public Book() { }
+	
+	public Book(int id, String name, int year, double price){
 		this.id = id;
 		this.name = name;
 		this.year = year;
@@ -38,11 +40,11 @@ public class Book {
 		this.year = year;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 	
@@ -65,4 +67,32 @@ public class Book {
 			return true;
 		return false;
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public Comparable SortIdComparable = new Book() {
+		public int compareTo(Book obj) {
+			int id1 = obj.getId();
+			int id2 = this.getId();
+				return id1 - id2;
+		}
+	};
+	
+	@SuppressWarnings("rawtypes")
+	public Comparable SortTitleComparable = new Book() {
+		public int compareTo(Book obj) {
+			String title1 = obj.getName();
+			String title2 = this.getName();
+				return title1.compareTo(title2);			
+		}
+	};
+	
+	@SuppressWarnings("rawtypes")
+	public Comparable SortPriceComparable = new Book() {
+		public int compareTo(Book obj) {
+			double price1 = obj.getPrice();
+			double price2 = this.getPrice();
+				return Double.compare(price1,price2);
+		}
+	};
+
 }
