@@ -9,13 +9,13 @@ public class Main {
 		new Main();
 	}
 	
-	private ViewingFrame viewingFrame;
 	
 	public Main(){
 		System.out.println("Start of the program\n");
 		
 		//TODO: Initialize everything (not only the frame)
-		viewingFrame = new ViewingFrame();
+		new MainControl();
+		new ViewingFrame();
 		
 		System.out.println("End of the program");
 	}

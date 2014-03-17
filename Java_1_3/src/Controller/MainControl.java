@@ -1,29 +1,42 @@
 package Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class CollectionClasses {
+public class MainControl {
 	private List<Object> list;
 	private Map<Object, List<Object>> map;
 	private Set<Object> set;
 	
-	private static CollectionClasses collclass;
-	
-	private CollectionClasses(){
-		
-	}
-	//*-----------------------------------------------------*\\
-	// Singleton object for the collectionClasses 	`		 \\
-	//making it impossible to make two objects of this kind  \\
-	//*-----------------------------------------------------*\\
-	public static CollectionClasses getInstance(){
-		if (collclass == null)
-			collclass = new CollectionClasses();
-		return collclass;
+	public MainControl(){
+		System.out.println("init of the main controller");
+		init();
 	}
 
+	private void init(){
+		list = new ArrayList<Object>();
+	// TODO: initialize the rest of the lists
+		
+	}
+	
+	public static void readTextFile(){
+		
+	}
+	
+	public static void writeTextFile(){
+		
+	}
+	
+	public static void readObjectFile(){
+		
+	}
+	
+	public static void writeObjectFile(){
+		
+	}
+	
 	//Getters and setters, toString and equals//
 	public List<Object> getList() {
 		return list;
