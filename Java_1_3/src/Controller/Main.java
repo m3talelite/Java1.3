@@ -19,20 +19,4 @@ public class Main {
 		
 		System.out.println("End of the program");
 	}
-	
-	public void readTextFile(){
-		
-	}
-	
-	public void writeTextFile(){
-		
-	}
-	
-	public void readObjectFile(){
-		
-	}
-	
-	public void writeObjectFile(){
-		
-	}
 }
