@@ -18,8 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import Controller.CollectionClasses;
-
 @SuppressWarnings("serial")
 public class ViewingFrame extends JFrame {
 
