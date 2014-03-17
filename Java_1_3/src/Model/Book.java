@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 import com.google.common.collect.ComparisonChain;
 
-public class Book implements Comparable<Book>, Serializable {
+public class Book implements Comparable<Book>, Serializable, Cloneable {
 	
 	private static final long serialVersionUID = 1L;
 	private int id;
@@ -79,6 +79,12 @@ public class Book implements Comparable<Book>, Serializable {
 		if (obj instanceof Book && ((Book) obj).getClass() == this.getClass())
 			return true;
 		return false;
+	}
+	
+	/////////////////////////////////////////CLONE/////////////////////////////////////////
+	
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 	
 	//////////////////////////////////////COMPARABLE//////////////////////////////////////	

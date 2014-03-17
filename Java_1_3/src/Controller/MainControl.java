@@ -85,6 +85,16 @@ public class MainControl {
 		//Google library
 		System.out.println("Google:");
 		getSortedListComparatorGoogle();
+		
+		//Clone
+		try {
+			for(int i = 0; i < list.size(); i++) {
+				Book cloned = (Book) list.get(i).clone();
+				System.out.println(">> " + cloned.getId());
+			}
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//////////////////////////////////////COMPARABLE//////////////////////////////////////
