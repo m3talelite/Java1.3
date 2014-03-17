@@ -4,6 +4,7 @@ import com.google.common.collect.ComparisonChain;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,13 +12,13 @@ import java.util.Set;
 import Model.Book;
 
 public class CollectionClasses {
-	private List<Book> list;
+	private List<Book> list = new LinkedList<Book>();
 	private Map<Object, List<Object>> map;
 	private Set<Object> set;
 	
 	private static CollectionClasses collclass;
 	
-	private CollectionClasses() { }
+	public CollectionClasses() { }
 	
 	//*-----------------------------------------------------*\\
 	// Singleton object for the collectionClasses 	`		 \\
@@ -46,68 +47,85 @@ public class CollectionClasses {
 		this.set = set;
 	}
 
-	//TODO: make all these methods work
-	public void addToList(Object obj){
-		
-	}
+	//////////////////////////////////////TERMINAL//////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public void print() {
 	
-	public void addToMap(Object obj){
+		//Voegt boeken toe aan list.
+		list.add(new Book(1,"Harry Potter en de Vuurbeker", 2000, 15.00));
+		list.add(new Book(2,"De aanslag", 1982, 10.00));
+		list.add(new Book(3,"De zwarte dood", 2003, 5.00));
+		list.add(new Book(4,"Hoe overleef ik het jaar 2000", 1999, 7.50));
 		
-	}
-	
-	public void addToSet(Object obj){
+		//Comparable
+		System.out.println("java.lang.Comparable:");
+		getSortedListComparable();
 		
-	}
-	
-	public void deleteFromList(Object obj){
+		//Google library
+		System.out.println("Google:");
+		getSortedListComparableGoogle();
 		
-	}
-	
-	public void deleteFromMap(Object obj){
+		//Comparator
+		System.out.println("java.util.Comparator:");
+		getSortedListComparator();
 		
-	}
-	
-	public void deleteFromSet(Object obj){
-		
+		//Google library
+		System.out.println("Google:");
+		getSortedListComparatorGoogle();
 	}
 	
 	//////////////////////////////////////COMPARABLE//////////////////////////////////////
 	
-	public List<Book> getSortedComId() {
+	@SuppressWarnings("unchecked")
+	public void getSortedListComparable() {
+		for(Book book1 : list) {
+			Collections.sort(book1.getList());
+			for(Book book2 : list)
+				System.out.println(book2.getId() + " - " + book2.getTitle() + " - " + book2.getYear() + " - " + book2.getPrice());
+		System.out.println("-----------------------------------------------------");
+		}
+	}
+	
+	public void getSortedListComparableGoogle() {
 		Collections.sort(list);
-		return list;
+		for(Book book : list)
+			System.out.println(book.getId() + " - " + book.getTitle() + " - " + book.getYear() + " - " + book.getPrice());	
+		System.out.println("-----------------------------------------------------");
 	}
 	
 	//////////////////////////////////////COMPARATOR//////////////////////////////////////
 	
 	@SuppressWarnings("unchecked")
-	public List<Book> getSortedId() {
-		Collections.sort(list,new ComparatorSort().SortIdComparator);
-		return list;
+	public void getSortedListComparator() {
+	    ComparatorSort comparatorSort = new ComparatorSort();
+		for(int i = 0; i < comparatorSort.getList().size(); i++) {
+			Collections.sort(list,comparatorSort.getList().get(i));
+			for(Book book : list)
+				System.out.println(book.getId() + " - " + book.getTitle() + " - " + book.getYear() + " - " + book.getPrice());
+			System.out.println("-----------------------------------------------------");
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Book> getSortedTitle() {
-		Collections.sort(list,new ComparatorSort().SortTitleComparator);
-		return list;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Book> getSortedPrice() {
-		Collections.sort(list,new ComparatorSort().SortPriceComparator);
-		return list;
-	}
-	
-	//Aparte library van google!	
-	@SuppressWarnings("unchecked")
-	public List<Book> getSortedList() {
+	public void getSortedListComparatorGoogle() {
 		Collections.sort(list,new ComparatorSort());
-		return list;
+		for(Book book : list)
+			System.out.println(book.getId() + " - " + book.getTitle() + " - " + book.getYear() + " - " + book.getPrice());	
+		System.out.println("-----------------------------------------------------");
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public class ComparatorSort implements Comparator {
 	
+		private List<Comparator> list = new LinkedList<Comparator>();
+		
+		public ComparatorSort() {
+			list.add(SortIdComparator);
+			list.add(SortTitleComparator);
+			list.add(SortYearComparator);
+			list.add(SortPriceComparator);
+		}
+		
 		public Comparator SortIdComparator = new Comparator() {
 			public int compare(Object obj1, Object obj2) {
 				int id1 = ((Book) obj1).getId();
@@ -139,9 +157,12 @@ public class CollectionClasses {
 				return Double.compare(price1,price2);
 			}
 		};
+		
+		public List<Comparator> getList() {
+			return list;
+		}
 
 		//Aparte library van google!
-		@Override
 		public int compare(Object o1, Object o2) {
 
 			Book book1 = (Book)o1;
@@ -150,6 +171,7 @@ public class CollectionClasses {
 			return ComparisonChain.start() 
 					.compare(book1.getId(),book2.getId())
 					.compare(book1.getTitle(),book2.getTitle())
+					.compare(book1.getYear(), book2.getYear())
 					.compare(book1.getPrice(),book2.getPrice())
 					.result();
 		}

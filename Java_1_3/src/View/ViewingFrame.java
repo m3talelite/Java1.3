@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import Controller.CollectionClasses;
+
 @SuppressWarnings("serial")
 public class ViewingFrame extends JFrame {
 

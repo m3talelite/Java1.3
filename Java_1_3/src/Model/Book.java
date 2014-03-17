@@ -1,19 +1,24 @@
 package Model;
 
-/*
- * 
- * Abstracte klassen van gemaakt i.v.m. het aanroepen van de methodes in de anonieme inwendige klassen comparable.
- * 
- */
+import java.util.LinkedList;
+import java.util.List;
 
-public abstract class Book implements Comparable<Book> {
+import com.google.common.collect.ComparisonChain;
+
+public class Book implements Comparable<Book> {
 	
 	private int id;
 	private String title;
 	private int year;
 	private double price;
+	private List<Comparable> list = new LinkedList<Comparable>();
 	
-	public Book() { }
+	public Book() { 
+		list.add(SortIdComparable);
+		list.add(SortTitleComparable);
+		list.add(SortYearComparable);
+		list.add(SortPriceComparable);		
+	}
 	
 	public Book(int id, String title, int year, double price){
 		this.id = id;
@@ -75,52 +80,57 @@ public abstract class Book implements Comparable<Book> {
 	}
 	
 	//////////////////////////////////////COMPARABLE//////////////////////////////////////	
-	
-	/*
-	 * 
-	 * De onderstaande methodes laten verschillende manieren van sortering zien.
-	 * Het is aan jouw zelf te bepalen welke van deze methodes je wilt gaan gebruiken. 
-	 * Houd er rekening mee dat ieder zijn voor- en nadelen heeft.
-	 * 
-	 */
-	
-	@SuppressWarnings("rawtypes")
-	public Comparable SortIdComparable = new Book() {
+
+	public Comparable<Book> SortIdComparable = new Comparable<Book>() {
 		public int compareTo(Book obj) {
 			int id1 = obj.getId();
-			int id2 = this.getId();
+			int id2 = Book.this.getId();
 				return id1 - id2;
 		}
 	};
 	
-	@SuppressWarnings("rawtypes")
-	public Comparable SortTitleComparable = new Book() {
+	public Comparable<Book> SortTitleComparable = new Comparable<Book>() {
 		public int compareTo(Book obj) {
 			String title1 = obj.getTitle();
-			String title2 = this.getTitle();
+			String title2 = Book.this.getTitle();
 				return title1.compareTo(title2);			
 		}
 	};
 	
-	@SuppressWarnings("rawtypes")
-	public Comparable SortYearComparable = new Book() {
+	public Comparable<Book> SortYearComparable = new Comparable<Book>() {
 		public int compareTo(Book o) {
-			if (o.getYear() > this.getYear()) 
+			if (o.getYear() > Book.this.getYear()) 
 				return 1;
-			else if (o.getYear() < this.getYear())
+			else if (o.getYear() < Book.this.getYear())
 				return -1;
 			else
 				return 0;
 		}
 	};
 	
-	@SuppressWarnings("rawtypes")
-	public Comparable SortPriceComparable = new Book() {
+	public Comparable<Book> SortPriceComparable = new Comparable<Book>() {
 		public int compareTo(Book obj) {
 			double price1 = obj.getPrice();
-			double price2 = this.getPrice();
+			double price2 = Book.this.getPrice();
 				return Double.compare(price1,price2);
 		}
 	};
+	
+	public List<Comparable> getList() {
+		return list;
+	}
+
+	//Aparte library van google!
+	public int compareTo(Book o1) {
+
+		Book book1 = (Book)o1;
+		
+		return ComparisonChain.start() 
+				.compare(book1.getId(),this.getId())
+				.compare(book1.getTitle(),this.getTitle())
+				.compare(book1.getYear(),this.getYear())
+				.compare(book1.getPrice(),this.getPrice())
+				.result();
+	}
 
 }
