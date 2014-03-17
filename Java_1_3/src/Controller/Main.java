@@ -3,14 +3,19 @@ package Controller;
 import View.ViewingFrame;
 
 public class Main {
-	
-	public Main() {
-		//new ViewingFrame();
-		new CollectionClasses().print();
-	}
-	
-	public static void main(String args[]) {
+
+	public static void main(String args[])
+	{
 		new Main();
 	}
 	
+	public Main(){
+		System.out.println("Start of the program\n");
+		
+		//TODO: Initialize everything (not only the frame)
+		new MainControl().print();
+		new ViewingFrame();
+		
+		System.out.println("End of the program");
+	}
 }

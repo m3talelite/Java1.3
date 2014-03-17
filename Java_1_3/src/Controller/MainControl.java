@@ -1,7 +1,6 @@
 package Controller;
 
-import com.google.common.collect.ComparisonChain;
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -9,27 +8,41 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.common.collect.ComparisonChain;
+
 import Model.Book;
 
-public class CollectionClasses {
-	private List<Book> list = new LinkedList<Book>();
+public class MainControl {
+	private List<Book> list;
 	private Map<Object, List<Object>> map;
 	private Set<Object> set;
 	
-	private static CollectionClasses collclass;
-	
-	public CollectionClasses() { }
-	
-	//*-----------------------------------------------------*\\
-	// Singleton object for the collectionClasses 	`		 \\
-	//making it impossible to make two objects of this kind  \\
-	//*-----------------------------------------------------*\\
-	public static CollectionClasses getInstance(){
-		if (collclass == null)
-			collclass = new CollectionClasses();
-		return collclass;
+	public MainControl(){
+		System.out.println("init of the main controller");
+		init();
 	}
 
+	private void init(){
+		list = new ArrayList<Book>();
+	// TODO: initialize the rest of the lists
+		
+	}
+	public static void readTextFile(){
+		
+	}
+
+	public static void writeTextFile(){
+
+	}
+	
+	public static void readObjectFile(){
+		
+	}
+	
+	public static void writeObjectFile(){
+		
+	}
+	
 	//Getters and setters, toString and equals//
 	public Map<Object, List<Object>> getMap() {
 		return map;
@@ -173,10 +186,9 @@ public class CollectionClasses {
 					.compare(book1.getTitle(),book2.getTitle())
 					.compare(book1.getYear(), book2.getYear())
 					.compare(book1.getPrice(),book2.getPrice())
+					.compare(book1.getPrice(),book2.getPrice())
 					.result();
 		}
-
 	}
-	
 }
  

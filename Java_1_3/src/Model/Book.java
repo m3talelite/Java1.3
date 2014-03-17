@@ -2,11 +2,13 @@ package Model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.io.Serializable;
 
 import com.google.common.collect.ComparisonChain;
 
-public class Book implements Comparable<Book> {
+public class Book implements Comparable<Book>, Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String title;
 	private int year;
