@@ -69,7 +69,7 @@ public class MainControl {
 		list.add(new Book(2,"De aanslag", 1982, 10.00));
 		list.add(new Book(3,"De zwarte dood", 2003, 5.00));
 		list.add(new Book(4,"De zwarte dood", 2003, 5.00));
-		list.add(new Book(5,"Hoe overleef ik het jaar 2000", 1999, 7.50));
+		list.add(new Book(5,"Hoe overleef ik het jaar 2000", 1999, 2.50));
 		
 		//Comparable
 		System.out.println("java.lang.Comparable:");
@@ -115,6 +115,10 @@ public class MainControl {
 		for(Book book : getAllUniqueBooks()) {
 			System.out.println(".." + book.getTitle());
 		}
+		
+		System.out.println("Max price: " + getMaxPrice());
+		System.out.println("Min price: " + getMinPrice());
+			
 	}
 	
 	//////////////////////////////////////ALGORITME//////////////////////////////////////
@@ -181,6 +185,28 @@ public class MainControl {
 			count = 0;
 		}
 		return newList;
+	}
+	
+	//Toont de hoogste prijs.
+	public Double getMaxPrice() {
+		double price = 0.0;
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getPrice() > price) {
+				price = list.get(i).getPrice();
+			}
+		}
+		return price;
+	}
+	
+	//Toont de laagste prijs.
+	public Double getMinPrice() {
+		double price = getMaxPrice();
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getPrice() < price) {
+				price = list.get(i).getPrice();
+			}
+		}
+		return price;
 	}
 	
 	//////////////////////////////////////COMPARABLE//////////////////////////////////////
