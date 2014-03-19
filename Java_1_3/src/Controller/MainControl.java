@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -89,7 +90,7 @@ public class MainControl {
 			System.out.println("-----------------------------------------------------");
 		}
 	}
-
+	
 	//////////////////////////////////////TERMINAL//////////////////////////////////////
 	@SuppressWarnings("unchecked")
 	public void print() {
@@ -98,7 +99,8 @@ public class MainControl {
 		list.add(new Book(1,"Harry Potter en de Vuurbeker", 2000, 15.00));
 		list.add(new Book(2,"De aanslag", 1982, 10.00));
 		list.add(new Book(3,"De zwarte dood", 2003, 5.00));
-		list.add(new Book(4,"Hoe overleef ik het jaar 2000", 1999, 7.50));
+		list.add(new Book(4,"De zwarte dood", 2003, 5.00));
+		list.add(new Book(5,"Hoe overleef ik het jaar 2000", 1999, 2.50));
 		
 		//Comparable
 		System.out.println("java.lang.Comparable:");
@@ -125,6 +127,117 @@ public class MainControl {
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
+		
+		//Algoritme
+		for(Book book : getReverseList()) {
+			System.out.println(book.getTitle());
+		}
+		
+		System.out.println(getTotalPrice());
+		
+		for(Book book : getBooks('D')) {
+			System.out.println(book.getTitle());
+		}
+		
+		for(Book book : getBooksOnYears(1982)) {
+			System.out.println(book.getTitle());
+		}
+		
+		for(Book book : getAllUniqueBooks()) {
+			System.out.println(".." + book.getTitle());
+		}
+		
+		System.out.println("Max price: " + getMaxPrice());
+		System.out.println("Min price: " + getMinPrice());
+			
+	}
+	
+	//////////////////////////////////////ALGORITME//////////////////////////////////////
+	
+	//Toont de omgekeerde volgorde.
+	public List<Book> getReverseList() {
+		List<Book> newList = new ArrayList<Book>();
+		for(int i = list.size()-1; i > -1; i--) {
+			newList.add(list.get(i));
+		}
+		return newList;
+	}
+	
+	//Toont het totaal bedrag van de boeken.
+	public Double getTotalPrice() {
+		double price = 0.0;
+		for(int i = 0; i < list.size(); i++) {
+		    price += list.get(i).getPrice();
+		}
+		return price;
+	}
+	
+	//Toont alle boeken op begin letter.
+	public List<Book> getBooks(char letter) {
+		List<Book> newList = new ArrayList<Book>();
+		for(int i = 0; i < list.size(); i++) {
+			String element = list.get(i).getTitle();
+				for(int j = 0; j < element.length(); j++) {
+					char character = element.charAt(j);
+					if(character == letter) {
+						newList.add(list.get(i));
+					}
+					break;
+				}
+		}
+		return newList;
+	}
+	
+	//Toont alle boeken op jaartal.
+	public List<Book> getBooksOnYears(int year) {
+		List<Book> newList = new ArrayList<Book>();
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getYear() == year) {
+				newList.add(list.get(i));
+			}
+		}
+		return newList;
+	}
+	
+	//Toont alle unieke boeken.
+	public List<Book> getAllUniqueBooks() {
+		List<Book> newList = new ArrayList<Book>();
+		int count = 0;
+		for(int i = 0; i < list.size(); i++) {
+			String title = list.get(i).getTitle();
+			for(int j = 0; j < list.size(); j++) {
+				if(title.equals(list.get(j).getTitle())) {
+					count++;
+				}
+			}
+			if(count < 2) {
+				newList.add(list.get(i));
+			}
+			count = 0;
+		}
+		return newList;
+	}
+	
+	//Toont de hoogste prijs.
+	public Double getMaxPrice() {
+		double price = 0.0;
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getPrice() > price) {
+				price = list.get(i).getPrice();
+			}
+		}
+		return price;
+	}
+	
+	//Toont de laagste prijs.
+	public Double getMinPrice() {
+		double price = getMaxPrice();
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getPrice() < price) {
+				price = list.get(i).getPrice();
+			}
+		}
+		return price;
 	}
 	
 	//////////////////////////////////////COMPARABLE//////////////////////////////////////
