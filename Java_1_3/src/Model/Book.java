@@ -13,6 +13,7 @@ public class Book implements Comparable<Book>, Serializable, Cloneable {
 	private String title;
 	private int year;
 	private double price;
+	@SuppressWarnings("rawtypes")
 	private List<Comparable> list = new LinkedList<Comparable>();
 	
 	public Book() { 
@@ -68,8 +69,6 @@ public class Book implements Comparable<Book>, Serializable, Cloneable {
 				", name=" + title + 
 				", year=" + year+ 
 				", price=" + price + "]";
-		
-		System.out.println(tmp);
 		return tmp;
 	}
 	
@@ -124,6 +123,7 @@ public class Book implements Comparable<Book>, Serializable, Cloneable {
 		}
 	};
 	
+	@SuppressWarnings("rawtypes")
 	public List<Comparable> getList() {
 		return list;
 	}

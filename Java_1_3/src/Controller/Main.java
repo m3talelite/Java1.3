@@ -12,7 +12,6 @@ public class Main {
 	public Main(){
 		System.out.println("Start of the program\n");
 		
-		//TODO: Initialize everything (not only the frame)
 		new MainControl().print();
 		new ViewingFrame();
 		

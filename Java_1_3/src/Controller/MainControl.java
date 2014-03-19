@@ -1,6 +1,10 @@
 package Controller;
 
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -8,9 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.google.common.collect.ComparisonChain;
-
 import Model.Book;
+
+import com.google.common.collect.ComparisonChain;
 
 public class MainControl {
 	private List<Book> list;
@@ -23,12 +27,30 @@ public class MainControl {
 	}
 
 	private void init(){
-		list = new ArrayList<Book>();
+		list = readTextFile();
 	// TODO: initialize the rest of the lists
-		
+		printList();
 	}
-	public static void readTextFile(){
-		
+	public List<Book> readTextFile(){
+		List<Book> tempList = new LinkedList<Book>();
+		File file = new File("Boekenlijst.txt");
+		FileInputStream inputStream;
+		BufferedReader bufferedReader;
+		try{
+			inputStream = new FileInputStream(file);
+			bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+			
+			String lineInfo;
+			while((lineInfo = bufferedReader.readLine()) != null){
+				String[] trimmingStr = lineInfo.split("-");
+				tempList.add(new Book(Integer.parseInt(trimmingStr[0]), trimmingStr[1], Integer.parseInt(trimmingStr[2]), Double.parseDouble(trimmingStr[3])));
+			}
+			bufferedReader.close();
+		}
+		catch (IOException ex){
+			System.out.println(ex.toString());
+		}
+		return tempList;
 	}
 
 	public static void writeTextFile(){
@@ -58,6 +80,14 @@ public class MainControl {
 
 	public void setSet(Set<Object> set) {
 		this.set = set;
+	}
+	
+	public void printList(){
+		System.out.println("-----------------------------------------------------");
+		for(Book obj : list){
+			System.out.println(obj.toString());
+			System.out.println("-----------------------------------------------------");
+		}
 	}
 
 	//////////////////////////////////////TERMINAL//////////////////////////////////////
