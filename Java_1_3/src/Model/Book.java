@@ -2,6 +2,7 @@ package Model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.awt.image.TileObserver;
 import java.io.Serializable;
 
 import com.google.common.collect.ComparisonChain;
@@ -25,6 +26,14 @@ public class Book implements Comparable<Book>, Serializable, Cloneable {
 	
 	public Book(int id, String title, int year, double price){
 		this.id = id;
+		this.title = title;
+		this.year = year;
+		this.price = price;
+	}
+	
+	public Book(String title, int year, double price){
+		// Debug purposes
+		this.id = 0;
 		this.title = title;
 		this.year = year;
 		this.price = price;
@@ -64,11 +73,19 @@ public class Book implements Comparable<Book>, Serializable, Cloneable {
 	
 	//Sample of the toString() method;
 	public String toString() {
-		String tmp = "Book " +
+		String tmp;
+		if (id == 0)
+			tmp = "Book " +
 				"[id=" + id + 
 				", name=" + title + 
 				", year=" + year+ 
 				", price=" + price + "]";
+		else
+			tmp = "Book " +
+					"[ name = " + title + 
+					", year = " + year + 
+					", price = " + price + "]";
+			
 		return tmp;
 	}
 	
